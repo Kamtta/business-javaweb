@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamTimes.dao.OrderDao">
+    <insert id="addOrder">
+        insert into ordertable(oNum,gphoto,uid,gid,gnum,ocreatedate) values (#{order.oNum},#{order.gphoto},#{order.uid},#{order.gid},#{order.gnum},#{order.ocreatedate})
+    </insert>
+
+    <select id="selectAll" resultType="com.dreamTimes.pojo.Order">
+        select * from ordertable
+    </select>
+
+    <delete id="delete">
+        delete from ordertable where oid = #{oid}
+    </delete>
+
+    <select id="selectByUid" resultType="com.dreamTimes.pojo.Order">
+        select * from ordertable where uid = #{uid}
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamTimes.dao.UserDao">
+    <select id="sumCount" resultType="int">
+        select count(*) from usertable where rlevel = #{rlevel}
+    </select>
+
+    <select id="findContent" resultType="com.dreamTimes.pojo.User">
+        select * from usertable where rlevel = #{rlevel} limit #{offset},#{num}
+    </select>
+
+    <select id="selectByRlevel" resultType="com.dreamTimes.pojo.User">
+        select * from usertable where rlevel = #{rlevel}
+    </select>
+
+    <select id="selectByUname" resultType="com.dreamTimes.pojo.User">
+        select * from usertable where uname = #{uname} and rlevel = #{rlevel}
+    </select>
+
+    <insert id="insertAdmin">
+        insert into usertable(uname,upwd,usex,ubirthday,receiver,raddress,rtelephone,rlevel) values (#{user.uname},#{user.upwd},#{user.usex},#{user.ubirthday},#{user.receiver},#{user.raddress},#{user.rtelephone},#{user.rlevel})
+    </insert>
+
+    <update id="deleteAdmin">
+        update usertable set ifdelete = 1 where uname = #{uname}
+    </update>
+
+    <update id="updateAdmin">
+        update usertable
+        <set>
+            <if test="user.upwd != null">
+                upwd = #{user.upwd},
+            </if>
+            <if test="user.usex > -1">
+                usex = #{user.usex},
+            </if>
+            <if test="user.ubirthday != null">
+                ubirthday = #{user.ubirthday},
+            </if>
+            <if test="user.receiver != null">
+                receiver = #{user.receiver},
+            </if>
+            <if test="user.raddress != null">
+                raddress = #{user.raddress},
+            </if>
+            <if test="user.rtelephone != null">
+                rtelephone = #{user.rtelephone},
+            </if>
+        </set>
+        where uname = #{user.uname}
+    </update>
+
+    <insert id="insertUser">
+        insert into usertable(uname,upwd,usex,ubirthday,receiver,raddress,rtelephone) values (#{user.uname},#{user.upwd},#{user.usex},#{user.ubirthday},#{user.receiver},#{user.raddress},#{user.rtelephone})
+    </insert>
+</mapper>

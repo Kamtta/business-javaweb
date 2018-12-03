@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamTimes.dao.ShoppingCartDao">
+    <insert id="addGoods">
+        insert into shoppingcart(gphoto,gname,gprice) values (#{goods.gphoto},#{goods.gname},#{goods.gprice})
+    </insert>
+
+    <delete id="delete">
+        delete from shoppingcart where gname = #{gname}
+    </delete>
+
+    <select id="selectAll" resultType="com.dreamTimes.pojo.ShoppingCart">
+        select * from shoppingcart
+    </select>
+
+    <select id="selectByGname" resultType="com.dreamTimes.pojo.ShoppingCart">
+        select * from shoppingcart where gname = #{gname}
+    </select>
+
+    <update id="update">
+        update shoppingcart
+        <set>
+            <if test="shoppingcart.gphoto != null">
+                gphoto = #{shoppingcart.gphoto},
+            </if>
+            <if test="shoppingcart.gprice > -1">
+                gprice = #{shoppingcart.gprice},
+            </if>
+            <if test="shoppingcart.num != null">
+                num = #{shoppingcart.num},
+            </if>
+            <if test="shoppingcart.gifupload != null">
+                gifupload = #{shoppingcart.gifupload},
+            </if>
+        </set>
+        where gname = #{shoppingcart.gname}
+    </update>
+</mapper>
